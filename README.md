@@ -1,2 +1,3 @@
 # dicoding-flutter-fundamental
-Submission Flutter Fundamental
+
+All Project on Dicoding Flutter Fundamental Class

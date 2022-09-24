@@ -9,6 +9,8 @@ class ListRestaurant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return FutureBuilder(
       future: DefaultAssetBundle.of(context).loadString(Restaurant.jsonFile),
       builder: (_, snapshot) {
@@ -18,7 +20,7 @@ class ListRestaurant extends StatelessWidget {
           if (snapshot.hasData) {
             final List<Restaurant> restaurants = parseRestaurant(snapshot.data);
             return SizedBox(
-              height: 268,
+              height: size.height * 0.341,
               child: ListView.builder(
                 itemCount: restaurants.length,
                 scrollDirection: Axis.horizontal,

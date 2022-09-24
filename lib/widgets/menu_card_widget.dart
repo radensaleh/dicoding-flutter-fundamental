@@ -30,7 +30,7 @@ class _MenuCardWidgetState extends State<MenuCardWidget> {
     Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      width: size.width - 225,
+      width: size.width - 180,
       child: Card(
         color: whiteColor,
         shape: RoundedRectangleBorder(
@@ -43,7 +43,7 @@ class _MenuCardWidgetState extends State<MenuCardWidget> {
               children: [
                 SizedBox(
                   width: size.width,
-                  height: 140,
+                  height: size.height * 0.18,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(18),
                     child: Image.asset(
@@ -143,9 +143,9 @@ class _MenuCardWidgetState extends State<MenuCardWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     left: 8.0,
-                    top: 120.0,
+                    top: size.height * 0.15,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

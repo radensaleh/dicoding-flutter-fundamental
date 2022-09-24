@@ -27,7 +27,7 @@ class ButtonSigninWidget extends StatelessWidget {
         shadowColor: grayColor20,
         elevation: 1,
         padding: const EdgeInsets.symmetric(
-          vertical: 16,
+          vertical: 18,
           horizontal: 16,
         ),
         shape: RoundedRectangleBorder(
@@ -42,16 +42,18 @@ class ButtonSigninWidget extends StatelessWidget {
           children: [
             Image.asset(
               icon,
-              width: 28,
-              height: 28,
+              width: 18,
+              height: 18,
             ),
-            const SizedBox(width: 8.0),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: context.theme.textTheme.button?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: titleColor,
+            Expanded(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: context.theme.textTheme.button?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: titleColor,
+                  fontSize: 10,
+                ),
               ),
             ),
           ],

@@ -16,6 +16,7 @@ class ButtonSigninWith extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: ButtonSigninWidget(
@@ -30,7 +31,7 @@ class ButtonSigninWith extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          width: 30.0,
+          width: 10.0,
         ),
         Expanded(
           child: ButtonSigninWidget(

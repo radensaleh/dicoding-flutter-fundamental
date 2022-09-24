@@ -166,6 +166,7 @@ class _RegisterContentState extends State<RegisterContent> {
               const ButtonSigninWith(
                 positionButtom: false,
               ),
+              const SizedBox(height: 18.0),
             ],
           ),
         ),

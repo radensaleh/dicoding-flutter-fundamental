@@ -209,6 +209,7 @@ class _LoginContentState extends State<LoginContent> {
               const ButtonSigninWith(
                 positionButtom: false,
               ),
+              const SizedBox(height: 18.0),
             ],
           ),
         )

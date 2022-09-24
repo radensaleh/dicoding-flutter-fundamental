@@ -13,6 +13,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = context.theme;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
@@ -37,11 +38,11 @@ class WelcomeScreen extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(28.0),
-            height: MediaQuery.of(context).size.height,
+            height: size.height,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 160.0),
+                const Spacer(flex: 2),
                 Image.asset(
                   'assets/images/welcome_text.png',
                   height: 100,
@@ -55,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
-                const SizedBox(height: 180.0),
+                const Spacer(flex: 3),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Row(
@@ -86,9 +87,7 @@ class WelcomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 8.0,
-                ),
+                const SizedBox(height: 8.0),
                 const ButtonSigninWith(
                   positionButtom: false,
                 ),

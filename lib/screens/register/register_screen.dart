@@ -11,11 +11,11 @@ class RegisterScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: size.width,
-            height: size.height + size.height * 0.06,
-            child: const RegisterContent(),
+        body: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: const SingleChildScrollView(
+            child: RegisterContent(),
           ),
         ),
       ),

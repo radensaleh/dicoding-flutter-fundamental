@@ -226,7 +226,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                   ),
                   const SizedBox(height: 18.0),
                   SizedBox(
-                    height: size.height - 600,
+                    height: 200,
                     child: ListView(
                       padding: const EdgeInsets.only(
                         top: 0,

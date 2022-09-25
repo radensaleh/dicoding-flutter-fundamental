@@ -9,8 +9,6 @@ class ListFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return FutureBuilder(
       future: DefaultAssetBundle.of(context).loadString(Restaurant.jsonFile),
       builder: (_, snapshot) {
@@ -52,8 +50,8 @@ class ListFood extends StatelessWidget {
 
             final List<PopularItems> popularItems = popularItemsList;
 
-            return SizedBox(
-              height: size.height * 0.29,
+            return ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 210),
               child: ListView.builder(
                 itemCount: popularItemsList.length,
                 scrollDirection: Axis.horizontal,

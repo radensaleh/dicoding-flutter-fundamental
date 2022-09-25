@@ -63,10 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Featured Restaurants',
-                          style: theme.textTheme.headline4!.copyWith(
-                            fontSize: 18,
+                        Flexible(
+                          child: Text(
+                            'Featured Restaurants',
+                            style: theme.textTheme.headline4!.copyWith(
+                              fontSize: 18,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Row(

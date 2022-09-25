@@ -30,20 +30,20 @@ class _MenuCardWidgetState extends State<MenuCardWidget> {
     Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      width: size.width - 180,
-      child: Card(
-        color: whiteColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+      width: size.width - 200,
+      child: Stack(
+        children: [
+          Card(
+            color: whiteColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: size.width,
-                  height: size.height * 0.18,
+                  height: 119,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(18),
                     child: Image.asset(
@@ -52,162 +52,149 @@ class _MenuCardWidgetState extends State<MenuCardWidget> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 15.0),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 65,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(32),
-                          color: whiteColor,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.fastfood,
-                              color: widget.menuType == 'Food'
-                                  ? orangeColor
-                                  : Colors.blue[600],
-                              size: 12,
-                            ),
-                            const SizedBox(width: 4.0),
-                            Flexible(
-                              child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                  text: widget.menuType,
-                                  style: theme.textTheme.headline4!.copyWith(
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      RichText(
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(
+                          text: widget.name,
+                          style: theme.textTheme.headline4!.copyWith(
+                            fontSize: 14,
+                          ),
                         ),
                       ),
-                      InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        splashColor: orangeColor,
-                        onTap: () {
-                          setState(() {
-                            isFavorite = !isFavorite;
-                          });
-                          if (isFavorite) {
-                            context.showCustomFlashMessage(
-                              status: 'success',
-                              title: 'Add Favorite',
-                              positionBottom: false,
-                            );
-                          } else {
-                            context.showCustomFlashMessage(
-                              status: 'success',
-                              title: 'Remove from Favorite',
-                              positionBottom: false,
-                            );
-                          }
-                        },
-                        child: isFavorite
-                            ? Card(
-                                color: Colors.red[600],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: whiteColor,
-                                    size: 18,
-                                  ),
-                                ),
-                              )
-                            : Card(
-                                color: Colors.grey.withOpacity(0.5),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: whiteColor,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
+                      const SizedBox(height: 6.0),
+                      RichText(
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(
+                          text: widget.restaurantName,
+                          style: theme.textTheme.headline4!.copyWith(
+                            fontSize: 12,
+                            color: grayColor,
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 8.0,
-                    top: size.height * 0.15,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RatingWidget(
-                        rating: widget.restaurantRating,
-                        fontSizeRating: 10,
-                        fontSizeReview: 9,
-                        iconSize: 10,
-                        paddingRounded: 10,
-                      ),
-                      const SizedBox(),
                     ],
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
+          ),
+          Positioned(
+            top: 12,
+            left: 12,
+            child: Container(
+              width: 65,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                color: whiteColor,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        child: RichText(
-                          overflow: TextOverflow.ellipsis,
-                          text: TextSpan(
-                            text: widget.name,
-                            style: theme.textTheme.headline4!.copyWith(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  Icon(
+                    Icons.fastfood,
+                    color: widget.menuType == 'Food'
+                        ? orangeColor
+                        : Colors.blue[600],
+                    size: 12,
                   ),
-                  const SizedBox(height: 6.0),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: RichText(
-                          overflow: TextOverflow.ellipsis,
-                          text: TextSpan(
-                            text: widget.restaurantName,
-                            style: theme.textTheme.headline4!.copyWith(
-                              fontSize: 12,
-                              color: grayColor,
-                            ),
-                          ),
+                  const SizedBox(width: 4.0),
+                  Flexible(
+                    child: RichText(
+                      overflow: TextOverflow.ellipsis,
+                      text: TextSpan(
+                        text: widget.menuType,
+                        style: theme.textTheme.headline4!.copyWith(
+                          fontSize: 10,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          Positioned(
+            right: 12,
+            top: 12,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(20),
+              splashColor: orangeColor,
+              onTap: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+                if (isFavorite) {
+                  context.showCustomFlashMessage(
+                    status: 'success',
+                    title: 'Add Favorite',
+                    positionBottom: false,
+                  );
+                } else {
+                  context.showCustomFlashMessage(
+                    status: 'success',
+                    title: 'Remove from Favorite',
+                    positionBottom: false,
+                  );
+                }
+              },
+              child: isFavorite
+                  ? Card(
+                      color: Colors.red[600],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.favorite,
+                          color: whiteColor,
+                          size: 18,
+                        ),
+                      ),
+                    )
+                  : Card(
+                      color: Colors.grey.withOpacity(0.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.favorite,
+                          color: whiteColor,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+          Positioned(
+            left: 12,
+            top: 108,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RatingWidget(
+                  rating: widget.restaurantRating,
+                  fontSizeRating: 10,
+                  fontSizeReview: 9,
+                  iconSize: 10,
+                  paddingRounded: 10,
+                ),
+                const SizedBox(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

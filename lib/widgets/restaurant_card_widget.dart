@@ -125,12 +125,16 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.name,
-                          style:
-                              theme.textTheme.headline4!.copyWith(fontSize: 14),
+                        Flexible(
+                          child: Text(
+                            widget.name,
+                            style: theme.textTheme.headline4!
+                                .copyWith(fontSize: 14),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         const SizedBox(width: 4),
                         Image.asset(
@@ -148,11 +152,14 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
                           width: 14,
                         ),
                         const SizedBox(width: 4.0),
-                        Text(
-                          'Free delivery',
-                          style: theme.textTheme.bodyText1!.copyWith(
-                            color: blackColor20,
-                            fontSize: 12,
+                        Flexible(
+                          child: Text(
+                            'Free delivery',
+                            style: theme.textTheme.bodyText1!.copyWith(
+                              color: blackColor20,
+                              fontSize: 12,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 10.0),
@@ -161,11 +168,14 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
                           width: 10,
                         ),
                         const SizedBox(width: 4.0),
-                        Text(
-                          '10-15 mins',
-                          style: theme.textTheme.bodyText1!.copyWith(
-                            color: blackColor20,
-                            fontSize: 12,
+                        Flexible(
+                          child: Text(
+                            '10-15 mins',
+                            style: theme.textTheme.bodyText1!.copyWith(
+                              color: blackColor20,
+                              fontSize: 12,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                       ],

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Food Hub App',
       theme: lightTheme,
-      initialRoute: Routes.splashScreen,
+      initialRoute: Routes.homeScreen,
       routes: routesApp,
       debugShowCheckedModeBanner: false,
     );

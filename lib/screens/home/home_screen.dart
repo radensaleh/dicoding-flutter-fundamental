@@ -15,13 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isFavorite = true;
+  bool isFavorite = false;
   late TextEditingController _searchRestaurant;
 
   @override
   void initState() {
     super.initState();
-    isFavorite = true;
     _searchRestaurant = TextEditingController();
   }
 

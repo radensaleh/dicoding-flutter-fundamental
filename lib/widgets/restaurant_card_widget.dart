@@ -49,9 +49,12 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
                         topLeft: Radius.circular(18),
                         topRight: Radius.circular(18),
                       ),
-                      child: Image.network(
-                        widget.pictureId,
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/images/foodhub.png',
                         fit: BoxFit.cover,
+                        image: widget.pictureId,
+                        imageErrorBuilder: (context, error, stackTrace) =>
+                            Image.asset('assets/images/foodhub.png'),
                       ),
                     ),
                   ),

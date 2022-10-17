@@ -121,7 +121,7 @@ class WelcomeScreen extends StatelessWidget {
                     InkWell(
                       onTap: () => Navigator.pushNamed(
                         context,
-                        Routes.registerScreen,
+                        Routes.loginScreen,
                       ),
                       child: Text(
                         'Sign In',

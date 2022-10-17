@@ -44,9 +44,12 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                         height: 200,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(14),
-                          child: Image.network(
-                            widget.restaurants.pictureId,
+                          child: FadeInImage.assetNetwork(
+                            placeholder: 'assets/images/foodhub.png',
                             fit: BoxFit.cover,
+                            image: widget.restaurants.pictureId,
+                            imageErrorBuilder: (context, error, stackTrace) =>
+                                Image.asset('assets/images/foodhub.png'),
                           ),
                         ),
                       ),

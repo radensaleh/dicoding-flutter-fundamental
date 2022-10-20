@@ -49,13 +49,13 @@ class RatingWidget extends StatelessWidget {
             color: yellowColor,
             size: iconSize,
           ),
-          const SizedBox(width: 2.0),
-          Text(
-            '(25+)',
-            style: theme.textTheme.bodyText1!.copyWith(
-              fontSize: fontSizeReview,
-            ),
-          ),
+          // const SizedBox(width: 2.0),
+          // Text(
+          //   '($totalReview+)',
+          //   style: theme.textTheme.bodyText1!.copyWith(
+          //     fontSize: fontSizeReview,
+          //   ),
+          // ),
         ],
       ),
     );

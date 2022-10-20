@@ -1,4 +1,3 @@
-import 'package:food_hub_app/data/models/restaurant.dart';
 import 'package:food_hub_app/routes/routes.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_hub_app/screens/screens.dart';
@@ -10,6 +9,12 @@ Map<String, WidgetBuilder> routesApp = {
   Routes.registerScreen: (_) => const RegisterScreen(),
   Routes.homeScreen: (_) => const HomeScreen(),
   Routes.restaurantDetailScreen: (_) => RestaurantDetailScreen(
-        restaurants: ModalRoute.of(_)!.settings.arguments as Restaurant,
+        id: ModalRoute.of(_)!.settings.arguments as String,
+      ),
+  Routes.restaurantSearchScreen: (_) => SearchScreen(
+        query: ModalRoute.of(_)!.settings.arguments as String,
+      ),
+  Routes.restaurantReviewScreen: (_) => RestaurantReviewScreen(
+        id: ModalRoute.of(_)!.settings.arguments as String,
       ),
 };

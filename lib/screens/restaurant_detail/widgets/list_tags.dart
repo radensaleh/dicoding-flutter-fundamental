@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_hub_app/data/models/restaurant_detail.dart';
 import 'package:food_hub_app/extensions/extension.dart';
 
 import '../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
 
 class ListTags extends StatelessWidget {
-  final List restaurantList;
+  final List<MenusItem> restaurantList;
   final String title;
   final Color color;
 
@@ -50,7 +51,7 @@ class ListTags extends StatelessWidget {
             spacing: 10,
             runSpacing: 10,
             children: restaurantList.map((data) {
-              return TagWidget(tagName: data['name'], tagColor: color);
+              return TagWidget(tagName: data.name, tagColor: color);
             }).toList(),
           ),
         ],

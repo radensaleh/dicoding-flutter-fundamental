@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   hexcolor: ^2.0.7
   flash: ^2.0.3+1
+  http: ^0.13.4
+  provider: ^6.0.1
   intl: ^0.17.0
   inspector: ^1.1.1
   inspection:

@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:food_hub_app/data/api/api_restaurant.dart';
 import 'package:food_hub_app/data/models/restaurant_detail.dart';
-import 'package:food_hub_app/routes/routes.dart';
-import 'package:food_hub_app/screens/restaurant_detail/widgets/list_tags.dart';
+import 'package:food_hub_app/screens/restaurant_review/widgets/list_review.dart';
 import 'package:food_hub_app/utils/utils.dart';
 import 'package:food_hub_app/extensions/extension.dart';
 import 'package:provider/provider.dart';
 
-class RestaurantDetailScreen extends StatefulWidget {
+class RestaurantReviewScreen extends StatefulWidget {
   final String id;
 
-  const RestaurantDetailScreen({
-    required this.id,
+  const RestaurantReviewScreen({
     super.key,
+    required this.id,
   });
 
   @override
-  State<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
+  State<RestaurantReviewScreen> createState() => _RestaurantReviewScreenState();
 }
 
-class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
+class _RestaurantReviewScreenState extends State<RestaurantReviewScreen> {
   bool isFavorite = false;
 
   @override
@@ -202,33 +201,10 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 2.0),
                         child: Text(
-                          '(${restaurant.customerReviews.length}+)',
+                          '(${restaurant.customerReviews.length} Review)',
                           style: theme.textTheme.headline4!.copyWith(
                             fontSize: 15,
                             color: grayColor,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2.0),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              Routes.restaurantReviewScreen,
-                              arguments: restaurant.id,
-                            );
-                          },
-                          child: Text(
-                            'See Review',
-                            style: theme.textTheme.headline4!.copyWith(
-                              fontSize: 15,
-                              color: orangeColor80,
-                              decoration: TextDecoration.underline,
-                              decorationColor: orangeColor,
-                              decorationThickness: 1.3,
-                            ),
                           ),
                         ),
                       ),
@@ -264,41 +240,48 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 18.0),
-                  SizedBox(
-                    height: 200,
-                    child: ListView(
-                      padding: const EdgeInsets.only(
-                        top: 0,
-                        left: 3,
-                        right: 3,
-                      ),
-                      scrollDirection: Axis.vertical,
+                  const SizedBox(height: 20.0),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 5,
+                      right: 5,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          restaurant.description,
-                          textAlign: TextAlign.justify,
-                          style: theme.textTheme.headline4!.copyWith(
-                            color: blackColor20,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            height: 1.4,
-                          ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.comment,
+                              color: Colors.blue[600],
+                              size: 18,
+                            ),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              'Review',
+                              style: theme.textTheme.headline4!.copyWith(
+                                fontSize: 18,
+                                color: blackColor.withOpacity(0.85),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 18.0),
-                  ListTags(
-                    restaurantList: restaurant.menus.foods,
-                    title: 'Foods',
-                    color: orangeColor,
-                  ),
-                  const SizedBox(height: 28.0),
-                  ListTags(
-                    restaurantList: restaurant.menus.drinks,
-                    title: 'Drinks',
-                    color: Colors.blue[600]!,
+                  const SizedBox(height: 14.0),
+                  ListView.builder(
+                    itemCount: restaurant.customerReviews.length,
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (_, index) {
+                      return ReviewCardWidget(
+                        name: restaurant.customerReviews[index].name,
+                        review: restaurant.customerReviews[index].review,
+                        date: restaurant.customerReviews[index].date,
+                      );
+                    },
                   ),
                 ],
               ),

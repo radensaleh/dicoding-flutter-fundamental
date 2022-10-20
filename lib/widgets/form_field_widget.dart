@@ -14,6 +14,7 @@ class FormFieldWidget extends StatelessWidget {
   final int? maxLines;
 
   final VoidCallback? onPressSufixobscureTextIcon;
+  final String? Function(String?)? onSubmitted;
 
   const FormFieldWidget({
     Key? key,
@@ -24,6 +25,7 @@ class FormFieldWidget extends StatelessWidget {
     this.showObscureToggle = false,
     this.maxLength = 30,
     this.maxLines,
+    this.onSubmitted,
     this.onPressSufixobscureTextIcon,
     this.textInputAction = TextInputAction.next,
     this.textInputType = TextInputType.text,
@@ -37,6 +39,7 @@ class FormFieldWidget extends StatelessWidget {
       ),
       child: TextFormField(
         controller: controller,
+        onFieldSubmitted: onSubmitted,
         maxLines: obscureText ? 1 : maxLines,
         maxLength: maxLength,
         autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_hub_app/routes/routes.dart';
 
 import '../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
@@ -20,11 +21,26 @@ class FoodSearchWidget extends StatelessWidget {
           child: FormFieldWidget(
             hintText: 'Find for Food or Restaurant...',
             controller: searchRestaurant,
+            onSubmitted: (p0) {
+              Navigator.pushNamed(
+                context,
+                Routes.restaurantSearchScreen,
+                arguments: p0,
+              );
+              return null;
+            },
           ),
         ),
         const SizedBox(width: 14.0),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              Routes.restaurantSearchScreen,
+              arguments: searchRestaurant.text,
+            );
+          },
+          splashColor: orangeColor,
           borderRadius: BorderRadius.circular(12),
           enableFeedback: false,
           child: Container(
@@ -42,12 +58,13 @@ class FoodSearchWidget extends StatelessWidget {
                 ]),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 4,
-                vertical: 4,
+                horizontal: 2,
+                vertical: 2,
               ),
-              child: Image.asset(
-                'assets/icons/setting.png',
-                width: 20,
+              child: Icon(
+                Icons.search,
+                color: orangeColor,
+                size: 22,
               ),
             ),
           ),

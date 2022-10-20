@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_hub_app/data/api/api_restaurant.dart';
 import 'package:food_hub_app/utils/utils.dart';
 import 'package:food_hub_app/extensions/extension.dart';
 import 'package:food_hub_app/widgets/widgets.dart';
@@ -52,7 +53,8 @@ class _RestaurantCardWidgetState extends State<RestaurantCardWidget> {
                       child: FadeInImage.assetNetwork(
                         placeholder: 'assets/images/foodhub.png',
                         fit: BoxFit.cover,
-                        image: widget.pictureId,
+                        image:
+                            '${ApiRestaurant.baseUrl}${ApiRestaurant.getImageUrl}${widget.pictureId}',
                         imageErrorBuilder: (context, error, stackTrace) =>
                             Image.asset('assets/images/foodhub.png'),
                       ),

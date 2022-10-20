@@ -4,6 +4,8 @@ import 'package:food_hub_app/extensions/extension.dart';
 
 import '../../../data/models/restaurant.dart';
 
+// List Food tidak mengambil data dari API karena di list restaurant tidak ada menus (adanya pada saat hit api detail),
+// jadi ini hanya static dari file json saja:)
 class ListFood extends StatelessWidget {
   const ListFood({super.key});
 

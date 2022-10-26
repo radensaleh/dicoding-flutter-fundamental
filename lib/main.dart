@@ -91,9 +91,9 @@ class _MyAppState extends State<MyApp> {
           checkAlarmNotification(preferenceSettingsProvider);
           return MaterialApp(
             title: 'Food Hub App',
-            theme: lightTheme,
+            theme: preferenceSettingsProvider.themeData,
             navigatorKey: navigatorKey,
-            initialRoute: Routes.homeScreen,
+            initialRoute: Routes.splashScreen,
             routes: routesApp,
             debugShowCheckedModeBanner: false,
           );

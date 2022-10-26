@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_hub_app/screens/home/widgets/list_food.dart';
 import 'package:food_hub_app/screens/home/widgets/list_restaurant.dart';
+import 'package:food_hub_app/utils/provider/preference_settings_provider.dart';
 import 'package:food_hub_app/utils/utils.dart';
 import 'package:food_hub_app/extensions/extension.dart';
 import 'package:provider/provider.dart';
@@ -68,9 +69,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         restaurantListProvider: restaurantListProvider,
                       ),
                       const SizedBox(height: 32.0),
-                      Image.asset(
-                        'assets/images/home_title.png',
-                        width: size.width - 120,
+                      Consumer<PreferenceSettingsProvider>(
+                        builder: (context, preferenceSettingsProvider, child) {
+                          return Image.asset(
+                            preferenceSettingsProvider.isDarkTheme
+                                ? 'assets/images/home_title_dark.png'
+                                : 'assets/images/home_title.png',
+                            width: size.width - 120,
+                          );
+                        },
                       ),
                       const SizedBox(height: 16.0),
                       FoodSearchWidget(

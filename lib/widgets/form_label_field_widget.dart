@@ -32,6 +32,7 @@ class FormLabelFieldWidget extends StatelessWidget {
           textInputType: accessor.textInputType,
           maxLength: accessor.maxLength,
           validator: accessor.validator,
+          darkTheme: accessor.darkTheme,
           textInputAction: accessor.textInputAction,
           showObscureToggle: accessor.showObscureToggle,
           onPressSufixobscureTextIcon: accessor.onPressSufixobscureTextIcon,

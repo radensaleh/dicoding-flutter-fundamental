@@ -12,6 +12,7 @@ class FormFieldWidget extends StatelessWidget {
   final bool showObscureToggle;
   final int maxLength;
   final int? maxLines;
+  final bool darkTheme;
 
   final VoidCallback? onPressSufixobscureTextIcon;
   final String? Function(String?)? onSubmitted;
@@ -20,6 +21,7 @@ class FormFieldWidget extends StatelessWidget {
     Key? key,
     required this.hintText,
     required this.controller,
+    required this.darkTheme,
     this.validator,
     this.obscureText = false,
     this.showObscureToggle = false,
@@ -76,7 +78,7 @@ class FormFieldWidget extends StatelessWidget {
           errorStyle: context.theme.textTheme.caption?.copyWith(
             color: context.theme.colorScheme.error,
           ),
-          fillColor: const Color(0xffFAFAFA),
+          fillColor: darkTheme ? blackColor80 : whiteColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(
@@ -87,7 +89,7 @@ class FormFieldWidget extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-              color: grayColor20,
+              color: darkTheme ? blackColor80 : grayColor20,
               width: 1,
             ),
           ),

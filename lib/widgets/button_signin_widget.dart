@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_hub_app/extensions/extension.dart';
-import 'package:food_hub_app/utils/style.dart';
 
 class ButtonSigninWidget extends StatelessWidget {
   final VoidCallback onPress;
   final String title;
   final String icon;
-  final Color buttonColor, titleColor;
+  final Color buttonColor, titleColor, shadowColor;
 
   const ButtonSigninWidget({
     super.key,
@@ -15,6 +14,7 @@ class ButtonSigninWidget extends StatelessWidget {
     required this.buttonColor,
     required this.icon,
     required this.titleColor,
+    required this.shadowColor,
   });
 
   @override
@@ -24,7 +24,7 @@ class ButtonSigninWidget extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: buttonColor,
         alignment: Alignment.center,
-        shadowColor: grayColor20,
+        shadowColor: shadowColor,
         elevation: 1,
         padding: const EdgeInsets.symmetric(
           vertical: 18,

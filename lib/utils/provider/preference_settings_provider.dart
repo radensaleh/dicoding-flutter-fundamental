@@ -1,5 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:food_hub_app/utils/helper/preference_settings_helper.dart';
+import 'package:food_hub_app/utils/theme.dart';
 
 class PreferenceSettingsProvider extends ChangeNotifier {
   late PreferenceSettingsHelper preferenceSettingsHelper;
@@ -25,6 +26,7 @@ class PreferenceSettingsProvider extends ChangeNotifier {
 
   bool _isDarkTheme = false;
   bool get isDarkTheme => _isDarkTheme;
+  ThemeData get themeData => _isDarkTheme ? darkTheme : lightTheme;
 
   void _getTheme() async {
     _isDarkTheme = await preferenceSettingsHelper.isDarkTheme;

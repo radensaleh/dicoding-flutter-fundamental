@@ -76,14 +76,18 @@ class ProfileScreen extends StatelessWidget {
                         height: 110,
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: whiteColor,
+                          color: preferenceSettingsProvider.isDarkTheme
+                              ? blackColor80
+                              : whiteColor,
                           borderRadius: BorderRadius.circular(100),
-                          boxShadow: const [
+                          boxShadow: [
                             BoxShadow(
-                              color: whiteColor,
+                              color: preferenceSettingsProvider.isDarkTheme
+                                  ? blackColor80
+                                  : whiteColor,
                               spreadRadius: 2,
                               blurRadius: 8,
-                              offset: Offset(0, 0),
+                              offset: const Offset(0, 0),
                             ),
                           ],
                         ),
@@ -146,7 +150,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      const CardProfileWidget(),
+                      CardProfileWidget(
+                        preferenceSettingsProvider: preferenceSettingsProvider,
+                      ),
                       const SizedBox(height: 30),
                       CardSettingWidget(
                           preferenceSettingsProvider:

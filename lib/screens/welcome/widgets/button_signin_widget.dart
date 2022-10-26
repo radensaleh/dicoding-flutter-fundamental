@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_hub_app/extensions/extension.dart';
+import 'package:food_hub_app/utils/provider/preference_settings_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
@@ -14,38 +16,56 @@ class ButtonSigninWith extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: ButtonSigninWidget(
-            onPress: () => context.showCustomFlashMessage(
-              status: 'info',
-              positionBottom: positionButtom,
+    return Consumer<PreferenceSettingsProvider>(
+      builder: (context, preferenceSettingsProvider, _) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ButtonSigninWidget(
+                onPress: () => context.showCustomFlashMessage(
+                  status: 'info',
+                  positionBottom: positionButtom,
+                ),
+                title: 'FACEBOOK',
+                icon: 'assets/icons/facebook.png',
+                buttonColor: preferenceSettingsProvider.isDarkTheme
+                    ? blackColor80
+                    : whiteColor,
+                titleColor: preferenceSettingsProvider.isDarkTheme
+                    ? whiteColor
+                    : blackColor,
+                shadowColor: preferenceSettingsProvider.isDarkTheme
+                    ? blackColor50
+                    : grayColor20,
+              ),
             ),
-            title: 'FACEBOOK',
-            icon: 'assets/icons/facebook.png',
-            buttonColor: whiteColor,
-            titleColor: blackColor,
-          ),
-        ),
-        const SizedBox(
-          width: 10.0,
-        ),
-        Expanded(
-          child: ButtonSigninWidget(
-            onPress: () => context.showCustomFlashMessage(
-              status: 'info',
-              positionBottom: positionButtom,
+            const SizedBox(
+              width: 10.0,
             ),
-            title: 'GOOGLE',
-            icon: 'assets/icons/google.png',
-            buttonColor: whiteColor,
-            titleColor: blackColor,
-          ),
-        ),
-      ],
+            Expanded(
+              child: ButtonSigninWidget(
+                onPress: () => context.showCustomFlashMessage(
+                  status: 'info',
+                  positionBottom: positionButtom,
+                ),
+                title: 'GOOGLE',
+                icon: 'assets/icons/google.png',
+                buttonColor: preferenceSettingsProvider.isDarkTheme
+                    ? blackColor80
+                    : whiteColor,
+                titleColor: preferenceSettingsProvider.isDarkTheme
+                    ? whiteColor
+                    : blackColor,
+                shadowColor: preferenceSettingsProvider.isDarkTheme
+                    ? blackColor50
+                    : grayColor20,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

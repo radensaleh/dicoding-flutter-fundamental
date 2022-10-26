@@ -11,12 +11,14 @@ class AccesorFormFiled extends InheritedWidget {
   final bool showObscureToggle;
   final int maxLength;
   final int? maxLines;
+  final bool darkTheme;
 
   const AccesorFormFiled({
     Key? key,
     required this.hintText,
     required Widget child,
     required this.controller,
+    required this.darkTheme,
     this.validator,
     this.obscureText = false,
     this.showObscureToggle = false,

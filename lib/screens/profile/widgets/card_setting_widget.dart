@@ -27,7 +27,9 @@ class CardSettingWidget extends StatelessWidget {
           children: [
             Icon(
               Icons.settings,
-              color: grayColor80,
+              color: preferenceSettingsProvider.isDarkTheme
+                  ? grayColor20
+                  : grayColor80,
               size: 18,
             ),
             const SizedBox(width: 5),
@@ -35,7 +37,9 @@ class CardSettingWidget extends StatelessWidget {
               'Setting',
               style: theme.textTheme.headline4!.copyWith(
                 fontSize: 18,
-                color: grayColor,
+                color: preferenceSettingsProvider.isDarkTheme
+                    ? grayColor20
+                    : grayColor,
               ),
             ),
           ],
@@ -44,13 +48,17 @@ class CardSettingWidget extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: whiteColor,
+            color: preferenceSettingsProvider.isDarkTheme
+                ? blackColor80
+                : whiteColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
                 blurRadius: 5,
                 spreadRadius: 0,
-                color: grayColor50,
+                color: preferenceSettingsProvider.isDarkTheme
+                    ? blackColor80
+                    : grayColor50,
                 offset: const Offset(0, 3),
               ),
             ],
@@ -60,6 +68,7 @@ class CardSettingWidget extends StatelessWidget {
               Consumer<NotificationSchedulingProvider>(
                 builder: (context, notificationSchedulingProvider, _) {
                   return DataSetting(
+                    preferenceSettingsProvider: preferenceSettingsProvider,
                     icon: const Icon(
                       Icons.alarm,
                       size: 15,
@@ -78,15 +87,17 @@ class CardSettingWidget extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               DataSetting(
+                preferenceSettingsProvider: preferenceSettingsProvider,
                 icon: const Icon(
                   Icons.light_mode_sharp,
                   size: 15,
                   color: whiteColor,
                 ),
                 title: 'Dark Mode Theme',
-                switchValue: true,
+                switchValue: preferenceSettingsProvider.isDarkTheme,
                 switchOnChanged: (p0) {
-                  print('$p0 dark');
+                  preferenceSettingsProvider.enableDarkTheme(p0!);
+                  return null;
                 },
               ),
               const SizedBox(height: 10),
@@ -103,7 +114,9 @@ class CardSettingWidget extends StatelessWidget {
                         BoxShadow(
                           blurRadius: 5,
                           spreadRadius: 0,
-                          color: orangeColor20,
+                          color: preferenceSettingsProvider.isDarkTheme
+                              ? blackColor50
+                              : orangeColor20,
                           offset: const Offset(0, 3),
                         ),
                       ],
@@ -119,7 +132,9 @@ class CardSettingWidget extends StatelessWidget {
                     'Try Notification',
                     style: theme.textTheme.headline4!.copyWith(
                       fontSize: 14,
-                      color: grayColor,
+                      color: preferenceSettingsProvider.isDarkTheme
+                          ? grayColor20
+                          : grayColor,
                     ),
                   ),
                   const Spacer(),
@@ -142,7 +157,9 @@ class CardSettingWidget extends StatelessWidget {
                           BoxShadow(
                             blurRadius: 5,
                             spreadRadius: 0,
-                            color: orangeColor20,
+                            color: preferenceSettingsProvider.isDarkTheme
+                                ? blackColor50
+                                : orangeColor20,
                             offset: const Offset(0, 3),
                           ),
                         ],
@@ -173,12 +190,14 @@ class DataSetting extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.switchValue,
+    required this.preferenceSettingsProvider,
     required this.switchOnChanged,
   }) : super(key: key);
 
   final Icon icon;
   final String title;
   final bool switchValue;
+  final PreferenceSettingsProvider preferenceSettingsProvider;
   final VoidCallback? Function(bool?)? switchOnChanged;
 
   @override
@@ -198,7 +217,9 @@ class DataSetting extends StatelessWidget {
               BoxShadow(
                 blurRadius: 5,
                 spreadRadius: 0,
-                color: orangeColor20,
+                color: preferenceSettingsProvider.isDarkTheme
+                    ? blackColor50
+                    : orangeColor20,
                 offset: const Offset(0, 3),
               ),
             ],
@@ -210,7 +231,9 @@ class DataSetting extends StatelessWidget {
           title,
           style: theme.textTheme.headline4!.copyWith(
             fontSize: 14,
-            color: grayColor,
+            color: preferenceSettingsProvider.isDarkTheme
+                ? grayColor20
+                : grayColor,
           ),
         ),
         const Spacer(),

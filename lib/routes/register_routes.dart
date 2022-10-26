@@ -17,4 +17,6 @@ Map<String, WidgetBuilder> routesApp = {
   Routes.restaurantReviewScreen: (_) => RestaurantReviewScreen(
         id: ModalRoute.of(_)!.settings.arguments as String,
       ),
+  Routes.restaurantFavoriteScreen: (_) => const RestaurantFavoriteScreen(),
+  Routes.profileScreen: (_) => const ProfileScreen(),
 };

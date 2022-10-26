@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:food_hub_app/routes/routes.dart';
 
 import '../../../utils/utils.dart';
 import 'package:food_hub_app/extensions/extension.dart';
 
 class HeaderWidget extends StatelessWidget {
+  final RestaurantListProvider restaurantListProvider;
+
   const HeaderWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.restaurantListProvider,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,32 +18,12 @@ class HeaderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(context, Routes.profileScreen),
           enableFeedback: false,
           borderRadius: BorderRadius.circular(14),
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 0,
-                    blurRadius: 5,
-                    offset: const Offset(0, 2),
-                  ),
-                ]),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 2,
-                vertical: 5,
-              ),
-              child: Image.asset(
-                'assets/icons/menu.png',
-                width: 15,
-              ),
-            ),
+          child: Image.asset(
+            'assets/icons/user.png',
+            width: 40,
           ),
         ),
         Column(
@@ -71,9 +55,38 @@ class HeaderWidget extends StatelessWidget {
             ),
           ],
         ),
-        Image.asset(
-          'assets/icons/user.png',
-          width: 40,
+        InkWell(
+          onTap: () =>
+              Navigator.pushNamed(context, Routes.restaurantFavoriteScreen)
+                  .then((value) => restaurantListProvider.refreshData),
+          enableFeedback: false,
+          splashColor: grayColor,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 0,
+                    blurRadius: 5,
+                    offset: const Offset(0, 2),
+                  ),
+                ]),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 2,
+                vertical: 2,
+              ),
+              child: Icon(
+                Icons.favorite,
+                size: 20,
+                color: orangeColor,
+              ),
+            ),
+          ),
         ),
       ],
     );

@@ -7,3 +7,4 @@ export 'rating_widget.dart';
 export 'tag_widget.dart';
 export 'custom_flash_widget.dart';
 export 'restaurant_search_card_widget.dart';
+export 'restaurant_favorite_widget.dart';

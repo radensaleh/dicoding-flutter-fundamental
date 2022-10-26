@@ -21,26 +21,26 @@ class RestaurantDetail {
   RestaurantDetail({
     required this.id,
     required this.name,
-    required this.description,
+    this.description,
     required this.city,
-    required this.address,
+    this.address,
     required this.pictureId,
     required this.rating,
-    required this.categories,
-    required this.menus,
-    required this.customerReviews,
+    this.categories,
+    this.menus,
+    this.customerReviews,
   });
 
   final String id;
   final String name;
-  final String description;
+  final String? description;
   final String city;
-  final String address;
+  final String? address;
   final String pictureId;
   final double rating;
-  final List<Category> categories;
-  final Menus menus;
-  final List<CustomerReview> customerReviews;
+  final List<Category>? categories;
+  final Menus? menus;
+  final List<CustomerReview>? customerReviews;
 
   factory RestaurantDetail.fromJson(Map<String, dynamic> json) =>
       RestaurantDetail(
@@ -56,6 +56,23 @@ class RestaurantDetail {
         menus: Menus.fromJson(json['menus']),
         customerReviews: List<CustomerReview>.from(json['customerReviews']
             .map((item) => CustomerReview.fromJson(item))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'name': name,
+        'city': city,
+        'pictureId': pictureId,
+        'rating': rating
+      };
+
+  factory RestaurantDetail.fromMap(Map<String, dynamic> map) =>
+      RestaurantDetail(
+        id: map['id'],
+        name: map['name'],
+        city: map['city'],
+        pictureId: map['pictureId'],
+        rating: map['rating'].toDouble(),
       );
 }
 

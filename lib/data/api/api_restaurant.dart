@@ -58,7 +58,6 @@ class ApiRestaurant {
     );
     if (response.statusCode == 201) {
       return;
-      // ignore: unnecessary_null_comparison
     } else if (response == null) {
       throw Exception('No Internet Connection');
     } else {

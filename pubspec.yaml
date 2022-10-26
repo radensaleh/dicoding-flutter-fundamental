@@ -40,6 +40,12 @@ dependencies:
   flash: ^2.0.3+1
   http: ^0.13.4
   provider: ^6.0.1
+  path_provider: ^2.0.1
+  sqflite: ^2.1.0+1
+  shared_preferences: ^2.0.11
+  android_alarm_manager_plus: ^2.1.0
+  rxdart: ^0.27.0
+  flutter_local_notifications: ^11.0.0
   intl: ^0.17.0
   inspector: ^1.1.1
   inspection:

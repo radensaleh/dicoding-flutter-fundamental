@@ -23,6 +23,29 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   bool isFavorite = false;
 
   @override
+  void initState() {
+    super.initState();
+    checkRestaurantFavorite();
+  }
+
+  void checkRestaurantFavorite() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final fav =
+          Provider.of<RestaurantFavoriteProvider>(context, listen: false);
+
+      if (await fav.isRestaurantFavorite(widget.id)) {
+        setState(() {
+          isFavorite = true;
+        });
+      } else {
+        setState(() {
+          isFavorite = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestaurantDetailProvider>(
       create: (context) => RestaurantDetailProvider(id: widget.id),
@@ -86,7 +109,11 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.pop(context);
+                                // Navigator.pushNamedAndRemoveUntil(
+                                //     context,
+                                //     Routes.homeScreen,
+                                //     (Route<dynamic> route) => false);
+                                Navigator.pop(context, true);
                               },
                               enableFeedback: false,
                               child: Container(
@@ -112,54 +139,79 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                                 ),
                               ),
                             ),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(20),
-                              splashColor: orangeColor,
-                              onTap: () {
-                                setState(() {
-                                  isFavorite = !isFavorite;
-                                });
-                                if (isFavorite) {
-                                  context.showCustomFlashMessage(
-                                    status: 'success',
-                                    title: 'Add Favorite',
-                                  );
-                                } else {
-                                  context.showCustomFlashMessage(
-                                    status: 'success',
-                                    title: 'Remove from Favorite',
-                                  );
-                                }
+                            Consumer<RestaurantFavoriteProvider>(
+                              builder:
+                                  (context, restaurantFavoriteProvider, _) {
+                                return InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  splashColor: orangeColor,
+                                  onTap: () async {
+                                    final favoriteCheck =
+                                        await restaurantFavoriteProvider
+                                            .isRestaurantFavorite(
+                                                restaurant.id);
+
+                                    if (favoriteCheck) {
+                                      restaurantFavoriteProvider
+                                          .removeRestaurantFavorite(
+                                              restaurant.id);
+
+                                      context.showCustomFlashMessage(
+                                        status: 'success',
+                                        title: 'Remove Favorite',
+                                        positionBottom: false,
+                                        message:
+                                            'Remove ${restaurant.name} from Favorite',
+                                      );
+                                    } else {
+                                      restaurantFavoriteProvider
+                                          .addResturantFavorite(restaurant);
+
+                                      context.showCustomFlashMessage(
+                                        status: 'success',
+                                        title: 'Success Add Favorite',
+                                        positionBottom: false,
+                                        message:
+                                            'Add ${restaurant.name} to your Favorite',
+                                      );
+                                    }
+                                    setState(() {
+                                      isFavorite = !isFavorite;
+                                    });
+                                  },
+                                  child: isFavorite
+                                      ? Card(
+                                          color: orangeColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(6),
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: whiteColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        )
+                                      : Card(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(6),
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: whiteColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        ),
+                                );
                               },
-                              child: isFavorite
-                                  ? Card(
-                                      color: orangeColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(6),
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: whiteColor,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    )
-                                  : Card(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(6),
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: whiteColor,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ),
                             ),
                           ],
                         ),
@@ -202,7 +254,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 2.0),
                         child: Text(
-                          '(${restaurant.customerReviews.length}+)',
+                          '(${restaurant.customerReviews!.length}+)',
                           style: theme.textTheme.headline4!.copyWith(
                             fontSize: 15,
                             color: grayColor,
@@ -218,7 +270,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                               context,
                               Routes.restaurantReviewScreen,
                               arguments: restaurant.id,
-                            );
+                            ).then((res) => checkRestaurantFavorite());
                           },
                           child: Text(
                             'See Review',
@@ -276,7 +328,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Text(
-                          restaurant.description,
+                          restaurant.description!,
                           textAlign: TextAlign.justify,
                           style: theme.textTheme.headline4!.copyWith(
                             color: blackColor20,
@@ -290,13 +342,13 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                   ),
                   const SizedBox(height: 18.0),
                   ListTags(
-                    restaurantList: restaurant.menus.foods,
+                    restaurantList: restaurant.menus!.foods,
                     title: 'Foods',
                     color: orangeColor,
                   ),
                   const SizedBox(height: 28.0),
                   ListTags(
-                    restaurantList: restaurant.menus.drinks,
+                    restaurantList: restaurant.menus!.drinks,
                     title: 'Drinks',
                     color: Colors.blue[600]!,
                   ),

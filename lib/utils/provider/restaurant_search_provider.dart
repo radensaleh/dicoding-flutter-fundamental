@@ -6,7 +6,6 @@ import 'package:food_hub_app/utils/provider/response_state.dart';
 class RestaurantSearchProvider extends ChangeNotifier {
   RestaurantSearchProvider(id) {
     _searchRestaurant(id);
-    notifyListeners();
   }
 
   RestaurantListResponse? _restaurantList;

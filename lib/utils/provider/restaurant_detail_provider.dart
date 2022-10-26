@@ -6,7 +6,6 @@ import 'package:food_hub_app/utils/provider/response_state.dart';
 class RestaurantDetailProvider extends ChangeNotifier {
   RestaurantDetailProvider({required this.id}) {
     _getDetailRestaurant();
-    notifyListeners();
   }
 
   String id;
@@ -29,7 +28,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
       notifyListeners();
       RestaurantDetailResponse restaurantDetail =
           await ApiRestaurant.getRestaurantDetail(id);
-      // ignore: unnecessary_null_comparison
+
       if (restaurantDetail.restaurantDetail == null) {
         _responseState = ResponseState.noData;
         notifyListeners();

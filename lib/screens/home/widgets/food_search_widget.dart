@@ -6,10 +6,12 @@ import '../../../widgets/widgets.dart';
 
 class FoodSearchWidget extends StatelessWidget {
   final TextEditingController searchRestaurant;
+  final RestaurantListProvider restaurantListProvider;
 
   const FoodSearchWidget({
     Key? key,
     required this.searchRestaurant,
+    required this.restaurantListProvider,
   }) : super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class FoodSearchWidget extends StatelessWidget {
                 context,
                 Routes.restaurantSearchScreen,
                 arguments: p0,
-              );
+              ).then((value) => restaurantListProvider.refreshData);
               return null;
             },
           ),
@@ -38,7 +40,7 @@ class FoodSearchWidget extends StatelessWidget {
               context,
               Routes.restaurantSearchScreen,
               arguments: searchRestaurant.text,
-            );
+            ).then((value) => restaurantListProvider.refreshData);
           },
           splashColor: orangeColor,
           borderRadius: BorderRadius.circular(12),

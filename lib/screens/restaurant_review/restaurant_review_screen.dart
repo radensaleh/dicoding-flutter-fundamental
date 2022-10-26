@@ -22,6 +22,26 @@ class _RestaurantReviewScreenState extends State<RestaurantReviewScreen> {
   bool isFavorite = false;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final fav =
+          Provider.of<RestaurantFavoriteProvider>(context, listen: false);
+
+      if (await fav.isRestaurantFavorite(widget.id)) {
+        setState(() {
+          isFavorite = true;
+        });
+      } else {
+        setState(() {
+          isFavorite = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RestaurantDetailProvider>(
       create: (context) => RestaurantDetailProvider(id: widget.id),
@@ -111,54 +131,78 @@ class _RestaurantReviewScreenState extends State<RestaurantReviewScreen> {
                                 ),
                               ),
                             ),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(20),
-                              splashColor: orangeColor,
-                              onTap: () {
-                                setState(() {
-                                  isFavorite = !isFavorite;
-                                });
-                                if (isFavorite) {
-                                  context.showCustomFlashMessage(
-                                    status: 'success',
-                                    title: 'Add Favorite',
-                                  );
-                                } else {
-                                  context.showCustomFlashMessage(
-                                    status: 'success',
-                                    title: 'Remove from Favorite',
-                                  );
-                                }
+                            Consumer<RestaurantFavoriteProvider>(
+                              builder:
+                                  (context, restaurantFavoriteProvider, _) {
+                                return InkWell(
+                                  borderRadius: BorderRadius.circular(20),
+                                  splashColor: orangeColor,
+                                  onTap: () async {
+                                    final favoriteCheck =
+                                        await restaurantFavoriteProvider
+                                            .isRestaurantFavorite(widget.id);
+
+                                    if (favoriteCheck) {
+                                      restaurantFavoriteProvider
+                                          .removeRestaurantFavorite(
+                                              restaurant.id);
+
+                                      context.showCustomFlashMessage(
+                                        status: 'success',
+                                        title: 'Remove Favorite',
+                                        positionBottom: false,
+                                        message:
+                                            'Remove ${restaurant.name} from Favorite',
+                                      );
+                                    } else {
+                                      restaurantFavoriteProvider
+                                          .addResturantFavorite(restaurant);
+
+                                      context.showCustomFlashMessage(
+                                        status: 'success',
+                                        title: 'Success Add Favorite',
+                                        positionBottom: false,
+                                        message:
+                                            'Add ${restaurant.name} to your Favorite',
+                                      );
+                                    }
+                                    setState(() {
+                                      isFavorite = !isFavorite;
+                                    });
+                                  },
+                                  child: isFavorite
+                                      ? Card(
+                                          color: orangeColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(6),
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: whiteColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        )
+                                      : Card(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(6),
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: whiteColor,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        ),
+                                );
                               },
-                              child: isFavorite
-                                  ? Card(
-                                      color: orangeColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(6),
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: whiteColor,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    )
-                                  : Card(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(6),
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: whiteColor,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ),
                             ),
                           ],
                         ),
@@ -201,7 +245,7 @@ class _RestaurantReviewScreenState extends State<RestaurantReviewScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 2.0),
                         child: Text(
-                          '(${restaurant.customerReviews.length} Review)',
+                          '(${restaurant.customerReviews!.length} Review)',
                           style: theme.textTheme.headline4!.copyWith(
                             fontSize: 15,
                             color: grayColor,
@@ -271,15 +315,15 @@ class _RestaurantReviewScreenState extends State<RestaurantReviewScreen> {
                   ),
                   const SizedBox(height: 14.0),
                   ListView.builder(
-                    itemCount: restaurant.customerReviews.length,
+                    itemCount: restaurant.customerReviews!.length,
                     scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
                       return ReviewCardWidget(
-                        name: restaurant.customerReviews[index].name,
-                        review: restaurant.customerReviews[index].review,
-                        date: restaurant.customerReviews[index].date,
+                        name: restaurant.customerReviews![index].name,
+                        review: restaurant.customerReviews![index].review,
+                        date: restaurant.customerReviews![index].date,
                       );
                     },
                   ),

@@ -12,6 +12,7 @@ class RestaurantFavoriteCardWidget extends StatelessWidget {
   final String city;
   final String pictureId;
   final dynamic rating;
+  final dynamic networkStatus;
 
   const RestaurantFavoriteCardWidget({
     super.key,
@@ -20,6 +21,7 @@ class RestaurantFavoriteCardWidget extends StatelessWidget {
     required this.city,
     required this.pictureId,
     required this.rating,
+    required this.networkStatus,
   });
 
   @override
@@ -48,14 +50,24 @@ class RestaurantFavoriteCardWidget extends StatelessWidget {
                       height: 150,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(18),
-                        child: FadeInImage.assetNetwork(
-                          placeholder: 'assets/images/foodhub.png',
-                          fit: BoxFit.cover,
-                          image:
-                              '${ApiRestaurant.baseUrl}${ApiRestaurant.getImageUrl}$pictureId',
-                          imageErrorBuilder: (context, error, stackTrace) =>
-                              Image.asset('assets/images/foodhub.png'),
-                        ),
+                        child: networkStatus
+                            ? FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/foodhub.png',
+                                fit: BoxFit.cover,
+                                image:
+                                    '${ApiRestaurant.baseUrl}${ApiRestaurant.getImageUrl}$pictureId',
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/foodhub.png',
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              )
+                            : Image.asset(
+                                'assets/images/foodhub.png',
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     const SizedBox(height: 15.0),

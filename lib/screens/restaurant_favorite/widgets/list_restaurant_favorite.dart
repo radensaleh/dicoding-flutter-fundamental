@@ -6,10 +6,12 @@ import '../../../widgets/widgets.dart';
 
 class ListRestaurantFavorite extends StatelessWidget {
   final RestaurantFavoriteProvider restaurantFavoriteProvider;
+  final bool internetConnectivity;
 
   const ListRestaurantFavorite({
     super.key,
     required this.restaurantFavoriteProvider,
+    required this.internetConnectivity,
   });
 
   @override
@@ -36,6 +38,7 @@ class ListRestaurantFavorite extends StatelessWidget {
               city: restaurantFavoriteProvider.favorite[index].city,
               pictureId: restaurantFavoriteProvider.favorite[index].pictureId,
               rating: restaurantFavoriteProvider.favorite[index].rating,
+              networkStatus: internetConnectivity,
             ),
           );
         },

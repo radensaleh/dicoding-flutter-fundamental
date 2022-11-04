@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_hub_app/screens/restaurant_favorite/widgets/list_restaurant_favorite.dart';
 import 'package:food_hub_app/extensions/extension.dart';
@@ -6,8 +8,43 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/utils.dart';
 
-class RestaurantFavoriteScreen extends StatelessWidget {
+class RestaurantFavoriteScreen extends StatefulWidget {
   const RestaurantFavoriteScreen({super.key});
+
+  @override
+  State<RestaurantFavoriteScreen> createState() =>
+      _RestaurantFavoriteScreenState();
+}
+
+class _RestaurantFavoriteScreenState extends State<RestaurantFavoriteScreen> {
+  bool isConnect = false;
+
+  @override
+  void initState() {
+    super.initState();
+    internetConnectivity();
+  }
+
+  Future<bool> internetConnectivity() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          isConnect = true;
+        });
+        return true;
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        isConnect = false;
+      });
+      return false;
+    }
+    setState(() {
+      isConnect = false;
+    });
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +150,9 @@ class RestaurantFavoriteScreen extends StatelessWidget {
                   child: SizedBox(
                     height: size.height - 250,
                     child: ListRestaurantFavorite(
-                        restaurantFavoriteProvider: restaurantFavoriteProvider),
+                      restaurantFavoriteProvider: restaurantFavoriteProvider,
+                      internetConnectivity: isConnect,
+                    ),
                   ),
                 ),
               ],

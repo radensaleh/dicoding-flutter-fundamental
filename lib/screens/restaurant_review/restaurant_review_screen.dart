@@ -7,6 +7,8 @@ import 'package:food_hub_app/utils/utils.dart';
 import 'package:food_hub_app/extensions/extension.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/widgets.dart';
+
 class RestaurantReviewScreen extends StatefulWidget {
   final String id;
 
@@ -49,18 +51,68 @@ class _RestaurantReviewScreenState extends State<RestaurantReviewScreen> {
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, restaurantDetailProvider, _) {
           if (restaurantDetailProvider.state == ResponseState.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Scaffold(
+              body: SafeArea(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
           } else if (restaurantDetailProvider.state == ResponseState.noData) {
-            return Center(child: Text(restaurantDetailProvider.message));
+            return _detailError(context, restaurantDetailProvider.message);
           } else if (restaurantDetailProvider.state == ResponseState.error) {
-            return Center(child: Text(restaurantDetailProvider.message));
+            return _detailError(context, restaurantDetailProvider.message);
           } else if (restaurantDetailProvider.state == ResponseState.hasData) {
             return _detailRestaurant(context,
                 restaurantDetailProvider.restaurantDetail!.restaurantDetail);
           } else {
-            return Center(child: Text(restaurantDetailProvider.message));
+            return _detailError(context, restaurantDetailProvider.message);
           }
         },
+      ),
+    );
+  }
+
+  Widget _detailError(BuildContext context, String message) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/notfound.png',
+                width: 200,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  message != '' ? message : 'Empty Data',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 4,
+                  vertical: 20,
+                ),
+                child: ButtonWidget(
+                  onPress: () => Navigator.pop(context),
+                  title: 'Back',
+                  buttonColor: orangeColor,
+                  titleColor: whiteColor,
+                  borderColor: orangeColor,
+                  paddingHorizontal: 0.0,
+                  paddingVertical: 16.0,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

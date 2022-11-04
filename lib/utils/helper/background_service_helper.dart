@@ -32,7 +32,7 @@ class BackgroundServiceHelper {
     var result = await ApiRestaurant.getRestaurantList();
     var listRestaurant = result.restaurants.toList();
 
-    var randomIndex = Random().nextInt(listRestaurant.length);
+    var randomIndex = 1 + Random().nextInt(10 - 1);
     var randomRestaurant = listRestaurant[randomIndex];
 
     await notificationHelper.showNotification(

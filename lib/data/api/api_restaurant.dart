@@ -40,6 +40,16 @@ class ApiRestaurant {
     }
   }
 
+  static Future<RestaurantDetailResponse> testGetRestaurantDetail(
+      String id, http.Client client) async {
+    final response = await client.get(Uri.parse('$baseUrl$getDetailUrl$id'));
+    if (response.statusCode == 200) {
+      return RestaurantDetailResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to get detail Restaurant');
+    }
+  }
+
   static Future<void> addReview({
     required String name,
     required String review,
